@@ -16,10 +16,28 @@ module.exports = {
           loader: 'babel-loader',
         },
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+
+          },
+        ],
+      },
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto',
+      },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.webpack.js', '.web.js', '.mjs', '.js', '.json', '.jsx'],
   },
   plugins: [
     new HtmlWebPackPlugin({
@@ -28,4 +46,5 @@ module.exports = {
       inject: 'body',
     }),
   ],
+  devtool: 'cheap-module-eval-source-map',
 };
