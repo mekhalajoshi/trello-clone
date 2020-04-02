@@ -25,7 +25,7 @@ function Home() {
         <h2>Add Course</h2>
         <form onSubmit={handleSubmit}>
           <div className="field">
-            <p className="control">
+            <div className="control">
               <input
                 className="input"
                 type="text"
@@ -38,7 +38,7 @@ function Home() {
                   <input type="submit" value="Save" className="button is-info" />
                 </p>
               </div>
-            </p>
+            </div>
           </div>
           {courses.map((c) => (
             <div key={c.title}>

@@ -1,18 +1,15 @@
-
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { Auth } from 'aws-amplify';
+import PropTypes from 'prop-types';
+import * as loginActions from '../../redux/actions/loginActions';
 import Validate from '../utility/FormValidation';
 import FormErrors from '../FormErrors';
 
-import '../../App.css';
-
-
-const Register = (props) => {
+function LogIn(props) {
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const dispatch = useDispatch();
 
   const initialErrors = {
     cognito: null,
@@ -37,43 +34,33 @@ const Register = (props) => {
     // Form validation
     clearErrorState();
     const error = Validate(event, {
-      username, email, password, confirmPassword,
+      username, password,
     });
     if (error) {
       setErrors({ ...errors, ...error });
     }
 
-    // AWS Cognito integration
+    // AWS Cognito integration here
+    console.log('AWS Cognito integration here');
+
     try {
-      // const signUpResponse =
-      await Auth.signUp({
-        username,
-        password,
-        attributes: {
-          email,
-        },
-      });
+      const user = await Auth.signIn(username, password);
+      console.log(user);
+      dispatch(loginActions.setAuthStatus(true));
+      dispatch(loginActions.setUser(user));
       props.history.push('/welcome');
-      // console.log(signUpResponse);
     } catch (er) {
       setErrors({ ...errors, cognito: !er.message ? { message: er } : er });
     }
   };
-
 
   const onInputChange = (event) => {
     switch (event.target.id) {
       case 'username':
         setUsername(event.target.value);
         break;
-      case 'email':
-        setEmail(event.target.value);
-        break;
       case 'password':
         setPassword(event.target.value);
-        break;
-      case 'confirmPassword':
-        setConfirmPassword(event.target.value);
         break;
       default:
         break;
@@ -85,8 +72,9 @@ const Register = (props) => {
   return (
     <section className="section auth">
       <div className="container">
-        <h1>Register</h1>
+        <h1>Log in</h1>
         <FormErrors formerrors={errors} />
+
         <form onSubmit={handleSubmit}>
           <div className="field">
             <p className="control">
@@ -94,27 +82,11 @@ const Register = (props) => {
                 className="input"
                 type="text"
                 id="username"
-                aria-describedby="userNameHelp"
-                placeholder="Enter username"
+                aria-describedby="usernameHelp"
+                placeholder="Enter username or email"
                 value={username}
                 onChange={onInputChange}
               />
-            </p>
-          </div>
-          <div className="field">
-            <p className="control has-icons-left has-icons-right">
-              <input
-                className="input"
-                type="email"
-                id="email"
-                aria-describedby="emailHelp"
-                placeholder="Enter email"
-                value={email}
-                onChange={onInputChange}
-              />
-              <span className="icon is-small is-left">
-                <i className="fas fa-envelope" />
-              </span>
             </p>
           </div>
           <div className="field">
@@ -133,24 +105,14 @@ const Register = (props) => {
             </p>
           </div>
           <div className="field">
-            <p className="control has-icons-left">
-              <input
-                className="input"
-                type="password"
-                id="confirmPassword"
-                placeholder="Confirm password"
-                value={confirmPassword}
-                onChange={onInputChange}
-              />
-              <span className="icon is-small is-left">
-                <i className="fas fa-lock" />
-              </span>
+            <p className="control">
+              <a href="/forgotpassword">Forgot password?</a>
             </p>
           </div>
           <div className="field">
             <p className="control">
-              <button type="submit" className="button is-info">
-                Register
+              <button type="submit" className="button is-success">
+                Login
               </button>
             </p>
           </div>
@@ -158,11 +120,8 @@ const Register = (props) => {
       </div>
     </section>
   );
+}
+LogIn.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
-Register.defaultProps = {
-  history: {},
-};
-Register.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any),
-};
-export default Register;
+export default LogIn;
