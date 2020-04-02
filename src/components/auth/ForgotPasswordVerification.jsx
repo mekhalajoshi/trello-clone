@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Auth } from 'aws-amplify';
@@ -7,12 +6,10 @@ import FormErrors from '../FormErrors';
 
 import '../../App.css';
 
-
-const Register = (props) => {
-  const [username, setUsername] = useState('');
+function ForgotPasswordVerification(props) {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
   const initialErrors = {
     cognito: null,
@@ -31,13 +28,13 @@ const Register = (props) => {
     });
   };
 
-  const handleSubmit = async (event) => {
+  const passwordVerificationHandler = async (event) => {
     event.preventDefault();
 
     // Form validation
     clearErrorState();
     const error = Validate(event, {
-      username, email, password, confirmPassword,
+      email, verificationCode, newPassword,
     });
     if (error) {
       setErrors({ ...errors, ...error });
@@ -45,64 +42,59 @@ const Register = (props) => {
 
     // AWS Cognito integration
     try {
-      // const signUpResponse =
-      await Auth.signUp({
-        username,
-        password,
-        attributes: {
-          email,
-        },
-      });
-      props.history.push('/welcome');
-      // console.log(signUpResponse);
-    } catch (er) {
-      setErrors({ ...errors, cognito: !er.message ? { message: er } : er });
+      await Auth.forgotPasswordSubmit(
+        email,
+        verificationCode,
+        newPassword,
+      );
+      props.history.push('/changepasswordconfirmation');
+    } catch (err) {
+      console.log(err);
     }
   };
 
-
   const onInputChange = (event) => {
     switch (event.target.id) {
-      case 'username':
-        setUsername(event.target.value);
-        break;
       case 'email':
         setEmail(event.target.value);
         break;
-      case 'password':
-        setPassword(event.target.value);
+      case 'verificationCode':
+        setVerificationCode(event.target.value);
         break;
-      case 'confirmPassword':
-        setConfirmPassword(event.target.value);
+      case 'newPassword':
+        setNewPassword(event.target.value);
         break;
       default:
         break;
     }
-
-    document.getElementById(event.target.id).classList.remove('is-danger');
   };
 
   return (
     <section className="section auth">
       <div className="container">
-        <h1>Register</h1>
+        <h1>Set new password</h1>
+        <p>
+          Please enter the verification code sent to your email address below,
+          your email address and a new password.
+        </p>
         <FormErrors formerrors={errors} />
-        <form onSubmit={handleSubmit}>
+
+        <form onSubmit={passwordVerificationHandler}>
           <div className="field">
             <p className="control">
               <input
-                className="input"
                 type="text"
-                id="username"
-                aria-describedby="userNameHelp"
-                placeholder="Enter username"
-                value={username}
+                className="input"
+                id="verificationcode"
+                aria-describedby="verificationCodeHelp"
+                placeholder="Enter verification code"
+                value={verificationCode}
                 onChange={onInputChange}
               />
             </p>
           </div>
           <div className="field">
-            <p className="control has-icons-left has-icons-right">
+            <p className="control has-icons-left">
               <input
                 className="input"
                 type="email"
@@ -120,26 +112,11 @@ const Register = (props) => {
           <div className="field">
             <p className="control has-icons-left">
               <input
-                className="input"
                 type="password"
-                id="password"
-                placeholder="Password"
-                value={password}
-                onChange={onInputChange}
-              />
-              <span className="icon is-small is-left">
-                <i className="fas fa-lock" />
-              </span>
-            </p>
-          </div>
-          <div className="field">
-            <p className="control has-icons-left">
-              <input
                 className="input"
-                type="password"
-                id="confirmPassword"
-                placeholder="Confirm password"
-                value={confirmPassword}
+                id="newpassword"
+                placeholder="New password"
+                value={newPassword}
                 onChange={onInputChange}
               />
               <span className="icon is-small is-left">
@@ -149,8 +126,8 @@ const Register = (props) => {
           </div>
           <div className="field">
             <p className="control">
-              <button type="submit" className="button is-info">
-                Register
+              <button type="submit" className="button is-success">
+                Submit
               </button>
             </p>
           </div>
@@ -158,11 +135,9 @@ const Register = (props) => {
       </div>
     </section>
   );
+}
+
+ForgotPasswordVerification.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
-Register.defaultProps = {
-  history: {},
-};
-Register.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any),
-};
-export default Register;
+export default ForgotPasswordVerification;

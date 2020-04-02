@@ -1,17 +1,13 @@
-
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Auth } from 'aws-amplify';
 import Validate from '../utility/FormValidation';
 import FormErrors from '../FormErrors';
-
 import '../../App.css';
 
-
-const Register = (props) => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function ChangePassword(props) {
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const initialErrors = {
@@ -20,7 +16,6 @@ const Register = (props) => {
     passwordmatch: false,
   };
   const [errors, setErrors] = useState(initialErrors);
-
   const clearErrorState = () => {
     setErrors({
       errors: {
@@ -37,7 +32,7 @@ const Register = (props) => {
     // Form validation
     clearErrorState();
     const error = Validate(event, {
-      username, email, password, confirmPassword,
+      oldPassword, newPassword, confirmPassword,
     });
     if (error) {
       setErrors({ ...errors, ...error });
@@ -45,32 +40,25 @@ const Register = (props) => {
 
     // AWS Cognito integration
     try {
-      // const signUpResponse =
-      await Auth.signUp({
-        username,
-        password,
-        attributes: {
-          email,
-        },
-      });
-      props.history.push('/welcome');
-      // console.log(signUpResponse);
+      const user = await Auth.currentAuthenticatedUser();
+      await Auth.changePassword(
+        user,
+        oldPassword,
+        newPassword,
+      );
+      props.history.push('/changepasswordconfirmation');
     } catch (er) {
       setErrors({ ...errors, cognito: !er.message ? { message: er } : er });
     }
   };
 
-
   const onInputChange = (event) => {
     switch (event.target.id) {
-      case 'username':
-        setUsername(event.target.value);
+      case 'oldPassword':
+        setOldPassword(event.target.value);
         break;
-      case 'email':
-        setEmail(event.target.value);
-        break;
-      case 'password':
-        setPassword(event.target.value);
+      case 'newPassword':
+        setNewPassword(event.target.value);
         break;
       case 'confirmPassword':
         setConfirmPassword(event.target.value);
@@ -85,46 +73,18 @@ const Register = (props) => {
   return (
     <section className="section auth">
       <div className="container">
-        <h1>Register</h1>
+        <h1>Change Password</h1>
         <FormErrors formerrors={errors} />
+
         <form onSubmit={handleSubmit}>
-          <div className="field">
-            <p className="control">
-              <input
-                className="input"
-                type="text"
-                id="username"
-                aria-describedby="userNameHelp"
-                placeholder="Enter username"
-                value={username}
-                onChange={onInputChange}
-              />
-            </p>
-          </div>
-          <div className="field">
-            <p className="control has-icons-left has-icons-right">
-              <input
-                className="input"
-                type="email"
-                id="email"
-                aria-describedby="emailHelp"
-                placeholder="Enter email"
-                value={email}
-                onChange={onInputChange}
-              />
-              <span className="icon is-small is-left">
-                <i className="fas fa-envelope" />
-              </span>
-            </p>
-          </div>
           <div className="field">
             <p className="control has-icons-left">
               <input
                 className="input"
                 type="password"
-                id="password"
-                placeholder="Password"
-                value={password}
+                id="oldpassword"
+                placeholder="Old password"
+                value={oldPassword}
                 onChange={onInputChange}
               />
               <span className="icon is-small is-left">
@@ -137,7 +97,22 @@ const Register = (props) => {
               <input
                 className="input"
                 type="password"
-                id="confirmPassword"
+                id="newpassword"
+                placeholder="New password"
+                value={newPassword}
+                onChange={onInputChange}
+              />
+              <span className="icon is-small is-left">
+                <i className="fas fa-lock" />
+              </span>
+            </p>
+          </div>
+          <div className="field">
+            <p className="control has-icons-left">
+              <input
+                className="input"
+                type="password"
+                id="confirmpassword"
                 placeholder="Confirm password"
                 value={confirmPassword}
                 onChange={onInputChange}
@@ -149,8 +124,13 @@ const Register = (props) => {
           </div>
           <div className="field">
             <p className="control">
-              <button type="submit" className="button is-info">
-                Register
+              <a href="/forgotpassword">Forgot password?</a>
+            </p>
+          </div>
+          <div className="field">
+            <p className="control">
+              <button type="submit" className="button is-success">
+                Change password
               </button>
             </p>
           </div>
@@ -158,11 +138,9 @@ const Register = (props) => {
       </div>
     </section>
   );
+}
+
+ChangePassword.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
-Register.defaultProps = {
-  history: {},
-};
-Register.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any),
-};
-export default Register;
+export default ChangePassword;
