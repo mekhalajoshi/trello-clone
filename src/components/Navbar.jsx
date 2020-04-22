@@ -15,7 +15,7 @@ function Navbar() {
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
-            <img src="public/trello_blue_logo.png" width="30" height="28" alt="trello-clone logo" />
+            <img src="trello_blue_logo.png" width="30" height="28" alt="trello-clone logo" />
           </a>
         </div>
 
