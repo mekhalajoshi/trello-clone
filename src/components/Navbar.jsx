@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../App.css';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import logo from '../images/trello_blue_logo.png';
 // import { Auth } from 'aws-amplify';
 
 // TODO: Make navbar responsive
@@ -15,7 +15,7 @@ function Navbar() {
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
-            <img src="trello_blue_logo.png" width="30" height="28" alt="trello-clone logo" />
+            <img src={logo} width="30" height="28" alt="trello-clone logo" />
           </a>
         </div>
 
