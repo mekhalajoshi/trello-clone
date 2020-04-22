@@ -4,7 +4,7 @@ import { Auth } from 'aws-amplify';
 import PropTypes from 'prop-types';
 import * as loginActions from '../../redux/actions/loginActions';
 import Validate from '../utility/FormValidation';
-import FormErrors from '../FormErrors';
+import FormErrors from './FormErrors';
 
 function LogIn(props) {
   const [username, setUsername] = useState('');

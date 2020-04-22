@@ -4,9 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Amplify from 'aws-amplify';
 import config from '../config.json';
-
 import App from './App';
-
 import 'bulma/css/bulma.min.css';
 
 Amplify.configure({

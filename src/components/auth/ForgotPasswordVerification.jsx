@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Auth } from 'aws-amplify';
 import Validate from '../utility/FormValidation';
-import FormErrors from '../FormErrors';
+import FormErrors from './FormErrors';
 
 import '../../App.css';
 

@@ -47,14 +47,19 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "@material-ui/core": "^4.9.8",
+    "@material-ui/icons": "^4.9.1",
     "aws-amplify": "^2.2.7",
+    "axios": "^0.19.2",
     "bulma": "^0.8.1",
     "eslint-config-airbnb-base": "^14.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   }
 }

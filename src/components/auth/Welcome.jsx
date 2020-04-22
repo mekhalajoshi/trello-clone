@@ -5,10 +5,6 @@ export default function Welcome() {
   const user = useSelector((state) => state.login.user);
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
 
-
-  console.log('Welcome');
-  console.log(user);
-  console.log(isAuthenticated);
   return (
     <section className="section auth">
       <div className="container">

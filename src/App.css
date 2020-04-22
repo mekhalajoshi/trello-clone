@@ -65,3 +65,26 @@ body {
 .buttons {
   margin-left: 1em;
 }
+
+.board_container{
+  background-color: lightskyblue;
+  min-height: 100vh;
+  padding: 20px;
+  overflow: scroll;
+}
+
+.trello_list{
+  background-color: lightgray;
+  max-width: 220px;
+  min-width: 220px;
+  height: 100%;
+  margin: 0.2rem;
+  border-radius: 2px;
+  padding: .3rem !important;
+}
+.trello_card{
+  padding: 2px;
+  margin: 2px 0px;
+  border-radius: 2px;
+
+}
