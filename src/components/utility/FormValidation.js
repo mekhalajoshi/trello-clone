@@ -5,7 +5,6 @@ function validateForm(event, state) {
   // clear all error messages
   const inputs = document.getElementsByClassName('is-danger');
   for (let i = 0; i < inputs.length; i += 1) {
-    console.log('----------validation');
     if (!inputs[i].classList.contains('error')) {
       inputs[i].classList.remove('is-danger');
     }

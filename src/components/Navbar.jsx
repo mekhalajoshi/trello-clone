@@ -6,11 +6,10 @@ import { useSelector } from 'react-redux';
 
 // import { Auth } from 'aws-amplify';
 
-
+// TODO: Make navbar responsive
 function Navbar() {
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
   const user = useSelector((state) => state.login.user);
-  console.log('Navbar');
   return (
     <div>
       <nav className="navbar" role="navigation" aria-label="main navigation">
