@@ -6,6 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "./node_modules/.bin/eslint src"
@@ -20,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/mekhalajoshi/trello-clone/issues"
   },
-  "homepage": "https://github.com/mekhalajoshi/trello-clone#readme",
+  "homepage": "https://github.com/mekhalajoshi/trello-clone",
   "devDependencies": {
     "@babel/core": "^7.8.7",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -38,6 +40,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "file-loader": "^6.0.0",
+    "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^25.1.0",
     "react-test-renderer": "^16.13.1",
