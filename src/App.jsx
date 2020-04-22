@@ -19,7 +19,7 @@ const store = configureStore(initialData);
 const App = () => (
   <div>
     <ReduxProvider store={store}>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <div>
           <Navbar />
           <Switch>
