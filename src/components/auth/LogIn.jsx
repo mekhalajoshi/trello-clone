@@ -48,7 +48,7 @@ function LogIn(props) {
       console.log(user);
       dispatch(loginActions.setAuthStatus(true));
       dispatch(loginActions.setUser(user));
-      props.history.push('/welcome');
+      props.history.push('/board');
     } catch (er) {
       setErrors({ ...errors, cognito: !er.message ? { message: er } : er });
     }
