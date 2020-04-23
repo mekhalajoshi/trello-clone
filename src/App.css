@@ -41,6 +41,7 @@ h1 {
 
 .navbar-item {
   display: flex !important;
+  align-items: center;
 }
 
 .navbar-end {
