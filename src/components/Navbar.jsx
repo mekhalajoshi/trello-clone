@@ -39,7 +39,7 @@ function Navbar() {
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">
             <Link to="/" className="navbar-item">
-              Home!
+              Home
             </Link>
             {isAuthenticated && (
               <Link to="/board" className="navbar-item">
