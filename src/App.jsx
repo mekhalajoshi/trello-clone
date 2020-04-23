@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import Board from './components/trello/Board';
 import Navbar from './components/Navbar';
@@ -17,7 +17,6 @@ import initialData from './initial_data';
 import Home from './components/Home';
 
 const store = configureStore(initialData);
-
 const App = () => (
   <div>
     <ReduxProvider store={store}>
