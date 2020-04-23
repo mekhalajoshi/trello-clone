@@ -31,9 +31,9 @@ function Navbar() {
     <div>
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <a className="navbar-item" href="/">
+          <Link className="navbar-item" to="/">
             <img src={logo} alt="trello-clone logo" />
-          </a>
+          </Link>
         </div>
 
         <div id="navbarBasicExample" className="navbar-menu">
