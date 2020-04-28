@@ -19,8 +19,53 @@ function Board() {
     list_ids, lists, cards,
   } = data;
 
-  const onDragEnd = () => {
+  const onDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
 
+    const start = lists[source.droppableId];
+    const finish = lists[destination.droppableId];
+
+    if (start === finish) {
+      const newCardIds = Array.from(start.card_ids);
+
+      newCardIds.splice(source.index, 1);
+      newCardIds.splice(destination.index, 0, draggableId);
+
+      const newList = {
+        ...start,
+        card_ids: newCardIds,
+      };
+      const newState = {
+        ...data,
+        lists: {
+          ...lists,
+          [newList.list_id]: newList,
+        },
+      };
+      dispatch(dataActions.setData(newState));
+    }
+
+    const startCardIds = Array.from(start.card_ids);
+    startCardIds.splice(source.index, 1);
+    const newStart = {
+      ...start,
+      card_ids: startCardIds,
+    };
+    const finishCardIds = Array.from(finish.card_ids);
+    finishCardIds.splice(destination.index, 0, draggableId);
+    const newFinish = {
+      ...finish,
+      card_ids: finishCardIds,
+    };
+    const newState = {
+      ...data,
+      lists: {
+        ...lists,
+        [newStart.list_id]: newStart,
+        [newFinish.list_id]: newFinish,
+      },
+    };
+    dispatch(dataActions.setData(newState));
   };
 
   return (
@@ -35,7 +80,6 @@ function Board() {
         })}
       </div>
     </DragDropContext>
-
   );
 }
 
