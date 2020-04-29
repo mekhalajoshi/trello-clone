@@ -13,7 +13,9 @@ function Board() {
     dispatch(dataActions.getUserData());
   }, []);
 
+  const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
   const data = useSelector((state) => state.data);
+  console.log(data);
   const {
     // eslint-disable-next-line camelcase
     list_ids, lists, cards,
@@ -43,6 +45,7 @@ function Board() {
         },
       };
       dispatch(dataActions.setData(newState));
+      return;
     }
 
     const startCardIds = Array.from(start.card_ids);
@@ -71,15 +74,18 @@ function Board() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="columns is-mobile board_container">
-        {list_ids.map((listId) => {
-          const list = lists[listId];
-          const cardList = list.card_ids.map((cardId) => cards[cardId]);
-          return (
-            <TrelloList key={listId} list={list} cards={cardList} />
-          );
-        })}
+        {isAuthenticated && (
+          list_ids.map((listId) => {
+            const list = lists[listId];
+            const cardList = list.card_ids.map((cardId) => cards[cardId]);
+            return (
+              <TrelloList key={listId} list={list} cards={cardList} />
+            );
+          })
+        )}
       </div>
     </DragDropContext>
+
   );
 }
 
