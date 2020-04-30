@@ -9,6 +9,14 @@ const dataReducer = (state = initialData, action) => {
       return { ...state, ...action.data };
     case types.SET_DATA:
       return { ...state, ...action.data };
+    case types.MOVE_CARD_WITHIN_LIST:
+      return {
+        ...state,
+        lists: {
+          ...state.lists,
+          [action.newList.listId]: action.newList,
+        },
+      };
     default:
       return state;
   }

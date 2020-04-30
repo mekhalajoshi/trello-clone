@@ -12,6 +12,9 @@ export function loadDataSuccess(data) {
 export function setData(data) {
   return { type: types.SET_DATA, data };
 }
+export function moveCardWithinList(newList) {
+  return { type: types.MOVE_CARD_WITHIN_LIST, newList };
+}
 
 export function getUserData() {
   return function (dispatch) {

@@ -4,7 +4,7 @@ const initialData = {
   data: {
     cards: {},
     lists: {},
-    list_ids: [],
+    listIds: [],
   },
 };
 export default initialData;

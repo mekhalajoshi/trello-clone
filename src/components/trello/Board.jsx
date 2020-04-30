@@ -18,7 +18,7 @@ function Board() {
   console.log(data);
   const {
     // eslint-disable-next-line camelcase
-    list_ids, lists, cards,
+    listIds, lists, cards,
   } = data;
 
   const onDragEnd = (result) => {
@@ -28,44 +28,45 @@ function Board() {
     const finish = lists[destination.droppableId];
 
     if (start === finish) {
-      const newCardIds = Array.from(start.card_ids);
+      const newCardIds = Array.from(start.cardIds);
 
       newCardIds.splice(source.index, 1);
       newCardIds.splice(destination.index, 0, draggableId);
 
       const newList = {
         ...start,
-        card_ids: newCardIds,
+        cardIds: newCardIds,
       };
-      const newState = {
-        ...data,
-        lists: {
-          ...lists,
-          [newList.list_id]: newList,
-        },
-      };
-      dispatch(dataActions.setData(newState));
+      // const newState = {
+      //   ...data,
+      //   lists: {
+      //     ...lists,
+      //     [newList.listId]: newList,
+      //   },
+      // };
+      // // dispatch(dataActions.setData(newState));
+      dispatch(dataActions.moveCardWithinList(newList));
       return;
     }
 
-    const startCardIds = Array.from(start.card_ids);
+    const startCardIds = Array.from(start.cardIds);
     startCardIds.splice(source.index, 1);
     const newStart = {
       ...start,
-      card_ids: startCardIds,
+      cardIds: startCardIds,
     };
-    const finishCardIds = Array.from(finish.card_ids);
+    const finishCardIds = Array.from(finish.cardIds);
     finishCardIds.splice(destination.index, 0, draggableId);
     const newFinish = {
       ...finish,
-      card_ids: finishCardIds,
+      cardIds: finishCardIds,
     };
     const newState = {
       ...data,
       lists: {
         ...lists,
-        [newStart.list_id]: newStart,
-        [newFinish.list_id]: newFinish,
+        [newStart.listId]: newStart,
+        [newFinish.listId]: newFinish,
       },
     };
     dispatch(dataActions.setData(newState));
@@ -74,15 +75,17 @@ function Board() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="columns is-mobile board_container">
-        {isAuthenticated && (
-          list_ids.map((listId) => {
+        {/* {isAuthenticated && ( */}
+        {
+          listIds.map((listId) => {
             const list = lists[listId];
-            const cardList = list.card_ids.map((cardId) => cards[cardId]);
+            const cardList = list.cardIds.map((cardId) => cards[cardId]);
             return (
               <TrelloList key={listId} list={list} cards={cardList} />
             );
           })
-        )}
+        }
+        {/* )} */}
       </div>
     </DragDropContext>
 

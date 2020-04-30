@@ -5,3 +5,6 @@ export const LOAD_DATA = 'LOAD_DATA';
 export const LOAD_DATA_SUCCESS = 'LOAD_DATA_SUCCESS';
 export const SET_USER = 'SET_USER';
 export const SET_DATA = 'SET_DATA';
+
+// Trello action types
+export const MOVE_CARD_WITHIN_LIST = 'MOVE_CARD_WITHIN_LIST';

@@ -10,8 +10,8 @@ function TrelloList(props) {
 
   return (
     <div className="column trello_list ">
-      {list.list_name}
-      <Droppable droppableId={list.list_id}>
+      {list.listName}
+      <Droppable droppableId={list.listId}>
         {(provided) => (
           <div
             ref={provided.innerRef}
@@ -21,7 +21,7 @@ function TrelloList(props) {
             {' '}
             {' '}
             {cards.map(
-              (cardId, index) => <TrelloCard index={index} key={cardId.card_id} card={cardId} />,
+              (cardId, index) => <TrelloCard index={index} key={cardId.cardId} card={cardId} />,
             )}
             {provided.placeholder}
           </div>
