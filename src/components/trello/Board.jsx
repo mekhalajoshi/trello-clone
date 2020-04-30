@@ -15,11 +15,7 @@ function Board() {
 
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
   const data = useSelector((state) => state.data);
-  console.log(data);
-  const {
-    // eslint-disable-next-line camelcase
-    listIds, lists, cards,
-  } = data;
+  const { listIds, lists, cards } = data;
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -37,14 +33,6 @@ function Board() {
         ...start,
         cardIds: newCardIds,
       };
-      // const newState = {
-      //   ...data,
-      //   lists: {
-      //     ...lists,
-      //     [newList.listId]: newList,
-      //   },
-      // };
-      // // dispatch(dataActions.setData(newState));
       dispatch(dataActions.moveCardWithinList(newList));
       return;
     }
@@ -61,15 +49,7 @@ function Board() {
       ...finish,
       cardIds: finishCardIds,
     };
-    const newState = {
-      ...data,
-      lists: {
-        ...lists,
-        [newStart.listId]: newStart,
-        [newFinish.listId]: newFinish,
-      },
-    };
-    dispatch(dataActions.setData(newState));
+    dispatch(dataActions.moveCardBetweenLists({ newStart, newFinish }));
   };
 
   return (

@@ -9,11 +9,11 @@ export function loadData() {
 export function loadDataSuccess(data) {
   return { type: types.LOAD_DATA_SUCCESS, data };
 }
-export function setData(data) {
-  return { type: types.SET_DATA, data };
-}
 export function moveCardWithinList(newList) {
   return { type: types.MOVE_CARD_WITHIN_LIST, newList };
+}
+export function moveCardBetweenLists(payload) {
+  return { type: types.MOVE_CARD_BETWEEN_LISTS, payload };
 }
 
 export function getUserData() {
