@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useSelector, useDispatch } from 'react-redux';
-// import axios from 'axios';
 import TrelloList from './TrelloList';
 import * as dataActions from '../../redux/actions/dataActions';
-
+import AddList from './AddList';
 import '../../App.css';
 
 function Board() {
@@ -56,6 +55,8 @@ function Board() {
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="columns is-mobile board_container">
         {/* {isAuthenticated && ( */}
+
+
         {
           listIds.map((listId) => {
             const list = lists[listId];
@@ -65,6 +66,7 @@ function Board() {
             );
           })
         }
+        <AddList />
         {/* )} */}
       </div>
     </DragDropContext>
