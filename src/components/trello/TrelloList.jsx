@@ -24,6 +24,7 @@ function TrelloList(props) {
               (cardId, index) => <TrelloCard index={index} key={cardId.cardId} card={cardId} />,
             )}
             {provided.placeholder}
+            <button type="button" className="add_button button">+ Add another card</button>
           </div>
         )}
       </Droppable>
