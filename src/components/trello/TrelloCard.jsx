@@ -6,7 +6,7 @@ import { Draggable } from 'react-beautiful-dnd';
 function TrelloCard(props) {
   const { card, index } = props;
   return (
-    <Draggable draggableId={card.card_id} index={index}>
+    <Draggable draggableId={card.cardId} index={index}>
       {(provided) => (
         <div
           className="trello_card card "
@@ -14,7 +14,7 @@ function TrelloCard(props) {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          {card.card_title}
+          {card.cardTitle}
         </div>
       )}
     </Draggable>
