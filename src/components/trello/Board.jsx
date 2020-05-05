@@ -1,12 +1,26 @@
 import React, { useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useSelector, useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import TrelloList from './TrelloList';
 import * as dataActions from '../../redux/actions/dataActions';
-import AddList from './AddList';
+import AddComponent from './AddComponent';
 import '../../App.css';
 
+const useStyles = makeStyles({
+  listContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginRight: 8,
+    backgroundColor: 'lightBlue',
+  },
+  title: {
+    fontSize: 14,
+  },
+});
 function Board() {
+  const classes = useStyles();
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(dataActions.getUserData());
@@ -53,7 +67,7 @@ function Board() {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="columns is-mobile board_container">
+      <div className={classes.listContainer}>
         {/* {isAuthenticated && ( */}
 
 
@@ -66,7 +80,7 @@ function Board() {
             );
           })
         }
-        <AddList />
+        <AddComponent list />
         {/* )} */}
       </div>
     </DragDropContext>

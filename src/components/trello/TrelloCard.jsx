@@ -11,16 +11,15 @@ import CardDetails from './CardDetails';
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
+    marginBottom: 10,
+    backgroundColor: 'pink',
   },
   title: {
     fontSize: 14,
   },
-  pos: {
-    marginBottom: 12,
-  },
 });
 function TrelloCard(props) {
+  const classes = useStyles();
   const { card, index } = props;
   const [localCard] = useState(card);
 
@@ -34,8 +33,6 @@ function TrelloCard(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const classes = useStyles();
 
 
   // console.log(card.cardId);

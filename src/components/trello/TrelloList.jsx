@@ -1,17 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
 import { Droppable } from 'react-beautiful-dnd';
 import TrelloCard from './TrelloCard';
-import AddCard from './AddCard';
+// import AddCard from './AddCard';
 import '../../App.css';
+import AddComponent from './AddComponent';
+
 // import CardDetails from './CardDetails';
 
+const useStyles = makeStyles({
+  container: {
+    backgroundColor: '#ebecf0',
+    marginRight: 8,
+    padding: 8,
+    borderRadius: 3,
+    width: 272,
+    height: '100%',
+
+  },
+  title: {
+    fontSize: 14,
+  },
+});
+
 function TrelloList(props) {
+  const classes = useStyles();
   const { list, cards } = props;
 
 
   return (
-    <div className="column trello_list ">
+    <div className={classes.container}>
       {list.listName}
       <Droppable droppableId={list.listId}>
         {(provided) => (
@@ -28,7 +47,8 @@ function TrelloList(props) {
               ),
             )}
             {provided.placeholder}
-            <AddCard listId={list.listId} card />
+            <AddComponent />
+            {/* <AddCard listId={list.listId} card /> */}
 
           </div>
         )}

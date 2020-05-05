@@ -8,6 +8,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+// import Icon from '@mdi/react';
+import SubtitlesIcon from '@material-ui/icons/Subtitles';
 
 function CardDetails(props) {
   const { card, open, handleClose } = props;
@@ -20,7 +22,11 @@ function CardDetails(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          <SubtitlesIcon />
+          {' '}
+          {card.cardTitle}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             {card.cardId}
