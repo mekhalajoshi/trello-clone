@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Droppable } from 'react-beautiful-dnd';
 import TrelloCard from './TrelloCard';
+import AddCard from './AddCard';
 import '../../App.css';
+// import CardDetails from './CardDetails';
 
 function TrelloList(props) {
   const { list, cards } = props;
-  // console.log(cards);
+
 
   return (
     <div className="column trello_list ">
@@ -21,10 +23,13 @@ function TrelloList(props) {
             {' '}
             {' '}
             {cards.map(
-              (cardId, index) => <TrelloCard index={index} key={cardId.cardId} card={cardId} />,
+              (cardId, index) => (
+                <TrelloCard card={cardId} index={index} key={cardId.cardId} />
+              ),
             )}
             {provided.placeholder}
-            <button type="button" className="add_button button">+ Add another card</button>
+            <AddCard listId={list.listId} card />
+
           </div>
         )}
       </Droppable>
