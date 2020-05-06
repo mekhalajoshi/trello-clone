@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     marginRight: 8,
-    backgroundColor: 'lightBlue',
+    overflow: 'scroll',
   },
   title: {
     fontSize: 14,

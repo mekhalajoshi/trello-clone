@@ -134,7 +134,7 @@ function AddComponent(props) {
   const renderComponent = () => {
     const buttonText = isList ? 'Add another list' : 'Add another card';
     const buttonTextOpacity = isList ? 1 : 0.5;
-    const buttonTextColor = isList ? 'white' : 'inherit';
+    const buttonTextColor = isList ? 'grey' : 'inherit';
     const buttonTextBackground = isList ? 'rgba(0,0,0,.15)' : 'inherit';
 
     return (
