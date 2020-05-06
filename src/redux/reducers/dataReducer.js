@@ -7,6 +7,30 @@ const dataReducer = (state = initialData, action) => {
       return { ...state, ...action.initialData };
     case types.LOAD_DATA_SUCCESS:
       return { ...state, ...action.data };
+    case types.ADD_LIST:
+      return {
+        ...state,
+        lists: {
+          ...state.lists,
+          [action.payload.newList.listId]: action.payload.newList,
+        },
+        listIds: [
+          ...state.listIds.slice(0, state.listIds.length),
+          action.payload.newList.listId,
+        ],
+      };
+    case types.ADD_CARD:
+      return {
+        ...state,
+        lists: {
+          ...state.lists,
+          [action.payload.newList.listId]: action.payload.newList,
+        },
+        cards: {
+          ...state.cards,
+          [action.payload.card.cardId]: action.payload.card,
+        },
+      };
     case types.MOVE_CARD_WITHIN_LIST:
       return {
         ...state,

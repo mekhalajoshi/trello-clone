@@ -1,19 +1,32 @@
 import React, { useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useSelector, useDispatch } from 'react-redux';
-// import axios from 'axios';
+import { makeStyles } from '@material-ui/core/styles';
 import TrelloList from './TrelloList';
 import * as dataActions from '../../redux/actions/dataActions';
-
+import AddComponent from './AddComponent';
 import '../../App.css';
 
+const useStyles = makeStyles({
+  listContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginRight: 8,
+    overflow: 'scroll',
+  },
+  title: {
+    fontSize: 14,
+  },
+});
 function Board() {
+  const classes = useStyles();
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(dataActions.getUserData());
   }, []);
 
-  const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
+  // const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
   const data = useSelector((state) => state.data);
   const { listIds, lists, cards } = data;
 
@@ -54,8 +67,10 @@ function Board() {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="columns is-mobile board_container">
+      <div className={classes.listContainer}>
         {/* {isAuthenticated && ( */}
+
+
         {
           listIds.map((listId) => {
             const list = lists[listId];
@@ -65,6 +80,7 @@ function Board() {
             );
           })
         }
+        <AddComponent isList />
         {/* )} */}
       </div>
     </DragDropContext>
