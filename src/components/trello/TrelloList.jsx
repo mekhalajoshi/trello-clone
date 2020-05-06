@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Droppable } from 'react-beautiful-dnd';
 import TrelloCard from './TrelloCard';
-// import AddCard from './AddCard';
 import '../../App.css';
 import AddComponent from './AddComponent';
-
 // import CardDetails from './CardDetails';
 
 const useStyles = makeStyles({
@@ -47,9 +45,7 @@ function TrelloList(props) {
               ),
             )}
             {provided.placeholder}
-            <AddComponent />
-            {/* <AddCard listId={list.listId} card /> */}
-
+            <AddComponent currentList={list} />
           </div>
         )}
       </Droppable>

@@ -26,7 +26,7 @@ function Board() {
     dispatch(dataActions.getUserData());
   }, []);
 
-  const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
+  // const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
   const data = useSelector((state) => state.data);
   const { listIds, lists, cards } = data;
 
@@ -80,7 +80,7 @@ function Board() {
             );
           })
         }
-        <AddComponent list />
+        <AddComponent isList />
         {/* )} */}
       </div>
     </DragDropContext>

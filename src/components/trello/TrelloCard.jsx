@@ -26,9 +26,9 @@ function TrelloCard(props) {
   // Material UI
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
     setOpen(false);
@@ -47,13 +47,13 @@ function TrelloCard(props) {
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
-            <CardActionArea onClick={handleClickOpen}>
-              <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                  {card.cardId}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
+            {/* <CardActionArea onClick={handleClickOpen}> */}
+            <CardContent>
+              <Typography className={classes.title} color="textSecondary" gutterBottom>
+                {card.cardTitle}
+              </Typography>
+            </CardContent>
+            {/* </CardActionArea> */}
             <CardDetails
               open={open}
               handleClose={handleClose}

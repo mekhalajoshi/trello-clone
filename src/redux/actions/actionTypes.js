@@ -8,3 +8,6 @@ export const SET_USER = 'SET_USER';
 // Trello card Movement
 export const MOVE_CARD_WITHIN_LIST = 'MOVE_CARD_WITHIN_LIST';
 export const MOVE_CARD_BETWEEN_LISTS = 'MOVE_CARD_BETWEEN_LISTS';
+
+export const ADD_CARD = 'ADD_CARD';
+export const ADD_LIST = 'ADD_LIST';
