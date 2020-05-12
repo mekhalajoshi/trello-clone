@@ -26,7 +26,7 @@ function Board() {
     dispatch(dataActions.getUserData());
   }, []);
 
-  // const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
+  const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
   const data = useSelector((state) => state.data);
   const { listIds, lists, cards } = data;
 
@@ -68,10 +68,7 @@ function Board() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={classes.listContainer}>
-        {/* {isAuthenticated && ( */}
-
-
-        {
+        {isAuthenticated && ( 
           listIds.map((listId) => {
             const list = lists[listId];
             const cardList = list.cardIds.map((cardId) => cards[cardId]);
@@ -79,9 +76,8 @@ function Board() {
               <TrelloList key={listId} list={list} cards={cardList} />
             );
           })
-        }
         <AddComponent isList />
-        {/* )} */}
+        )}
       </div>
     </DragDropContext>
 
