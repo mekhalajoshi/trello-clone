@@ -68,16 +68,20 @@ function Board() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={classes.listContainer}>
-        {isAuthenticated && ( 
-          listIds.map((listId) => {
-            const list = lists[listId];
-            const cardList = list.cardIds.map((cardId) => cards[cardId]);
-            return (
-              <TrelloList key={listId} list={list} cards={cardList} />
-            );
-          })
-        <AddComponent isList />
-        )}
+        {isAuthenticated && (
+          <>
+          {
+            listIds.map((listId) => {
+              const list = lists[listId];
+              const cardList = list.cardIds.map((cardId) => cards[cardId]);
+                return (
+                  <TrelloList key={listId} list={list} cards={cardList} />
+                );
+            })
+          }
+          <AddComponent isList />
+          </>
+        )} 
       </div>
     </DragDropContext>
 

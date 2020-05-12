@@ -25,13 +25,12 @@ const useStyles = makeStyles({
     outline: 'none',
     border: 'none',
     overfolw: 'hidden',
-    backgroundColor: 'pink',
-
   },
   textAreaContainer: {
-    minHeight: 80,
-    minWidth: 272,
-    padding: '6px 8px 2px',
+    minHeight: 20,
+    minWidth: 256,
+    width: '100%',
+    padding: '2px 2px 2px 5px',
   },
   button: {
     color: 'white',
@@ -132,7 +131,7 @@ function AddComponent(props) {
   };
 
   const renderComponent = () => {
-    const buttonText = isList ? 'Add another list' : 'Add another card';
+    const buttonText = isList ? 'Add a list' : 'Add a card';
     const buttonTextOpacity = isList ? 1 : 0.5;
     const buttonTextColor = isList ? 'grey' : 'inherit';
     const buttonTextBackground = isList ? 'rgba(0,0,0,.15)' : 'inherit';

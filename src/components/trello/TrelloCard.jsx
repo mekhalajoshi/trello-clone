@@ -12,11 +12,21 @@ import CardDetails from './CardDetails';
 const useStyles = makeStyles({
   root: {
     marginBottom: 10,
-    backgroundColor: 'pink',
+    //backgroundColor: 'pink',
+    //height:70,
+    // padding: 5,
   },
   title: {
     fontSize: 14,
+    // padding: 5
+    wordWrap:'word-break',
   },
+  card_content:{
+    padding: '5px !important',
+  },
+  container:{
+    padding:0,
+  }
 });
 function TrelloCard(props) {
   const classes = useStyles();
@@ -26,9 +36,9 @@ function TrelloCard(props) {
   // Material UI
   const [open, setOpen] = useState(false);
 
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -38,7 +48,7 @@ function TrelloCard(props) {
   // console.log(card.cardId);
   // TODO add local state to store the card
   return (
-    <div>
+    <div className={classes.container}>
       <Draggable draggableId={card.cardId} index={index}>
         {(provided) => (
           <Card
@@ -47,13 +57,13 @@ function TrelloCard(props) {
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
-            {/* <CardActionArea onClick={handleClickOpen}> */}
-            <CardContent>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+          <div onClick={handleClickOpen}>
+            <CardContent className={classes.card_content}>
+              <Typography className={classes.title} color="textSecondary">
                 {card.cardTitle}
               </Typography>
             </CardContent>
-            {/* </CardActionArea> */}
+          </div> 
             <CardDetails
               open={open}
               handleClose={handleClose}
