@@ -1,7 +1,9 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-shadow */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Droppable } from 'react-beautiful-dnd';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import TrelloCard from './TrelloCard';
 import '../../App.css';
 import AddComponent from './AddComponent';
@@ -24,32 +26,41 @@ const useStyles = makeStyles({
 
 function TrelloList(props) {
   const classes = useStyles();
-  const { list, cards } = props;
+  const { list, cards, index } = props;
 
 
   return (
-    <div className={classes.container}>
-      {list.listName}
-      <Droppable droppableId={list.listId}>
-        {(provided) => (
-          <div
-            ref={provided.innerRef}
+    <Draggable draggableId={list.listId} index={index}>
+      {(provided) => (
+        <div
+          className={classes.container}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        >
+          {list.listName}
+          <Droppable droppableId={list.listId} type="card">
+            {(provided) => (
+              <div
+                ref={provided.innerRef}
             // eslint-disable-next-line react/jsx-props-no-spreading
-            {...provided.droppableProps}
-          >
-            {' '}
-            {' '}
-            {cards.map(
-              (cardId, index) => (
-                <TrelloCard card={cardId} index={index} key={cardId.cardId} />
-              ),
+                {...provided.droppableProps}
+              >
+                {' '}
+                {' '}
+                {cards.map(
+                  (cardId, index) => (
+                    <TrelloCard card={cardId} index={index} key={cardId.cardId} />
+                  ),
+                )}
+                {provided.placeholder}
+                <AddComponent currentList={list} />
+              </div>
             )}
-            {provided.placeholder}
-            <AddComponent currentList={list} />
-          </div>
-        )}
-      </Droppable>
-    </div>
+          </Droppable>
+        </div>
+      )}
+    </Draggable>
   );
 }
 
@@ -57,5 +68,6 @@ function TrelloList(props) {
 TrelloList.propTypes = {
   list: PropTypes.objectOf(PropTypes.any).isRequired,
   cards: PropTypes.arrayOf(PropTypes.any).isRequired,
+  index: PropTypes.number.isRequired,
 };
 export default TrelloList;

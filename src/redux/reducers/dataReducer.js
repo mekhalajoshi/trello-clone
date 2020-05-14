@@ -48,6 +48,11 @@ const dataReducer = (state = initialData, action) => {
           [action.payload.newFinish.listId]: action.payload.newFinish,
         },
       };
+    case types.MOVE_LIST:
+      return {
+        ...state,
+        listIds: action.payload.listIds,
+      };
     default:
       return state;
   }

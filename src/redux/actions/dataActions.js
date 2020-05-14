@@ -22,6 +22,9 @@ export function moveCardWithinList(newList) {
 export function moveCardBetweenLists(payload) {
   return { type: types.MOVE_CARD_BETWEEN_LISTS, payload };
 }
+export function moveList(payload) {
+  return { type: types.MOVE_LIST, payload };
+}
 
 export function getUserData() {
   return function (dispatch) {

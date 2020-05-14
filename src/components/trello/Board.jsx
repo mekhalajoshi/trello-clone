@@ -1,24 +1,25 @@
-import React, { useEffect } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
-import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import TrelloList from './TrelloList';
+import React, { useEffect, useMemo } from 'react';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { useDispatch, useSelector } from 'react-redux';
+import '../../App.css';
 import * as dataActions from '../../redux/actions/dataActions';
 import AddComponent from './AddComponent';
-import '../../App.css';
+import TrelloList from './TrelloList';
 
 const useStyles = makeStyles({
   listContainer: {
     display: 'flex',
     flexDirection: 'row',
     marginRight: 8,
-    overflow: 'scroll',
+    overflow: 'auto',
+    padding: 10,
   },
   title: {
     fontSize: 14,
   },
 });
-function Board() {
+export default function Board() {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -31,7 +32,21 @@ function Board() {
   const { listIds, lists, cards } = data;
 
   const onDragEnd = (result) => {
-    const { destination, source, draggableId } = result;
+    const {
+      destination, source, draggableId, type,
+    } = result;
+
+    if (type === 'list') {
+      const newListIds = Array.from(listIds);
+      newListIds.splice(source.index, 1);
+      newListIds.splice(destination.index, 0, draggableId);
+
+      const payload = {
+        listIds: newListIds,
+      };
+      dispatch(dataActions.moveList(payload));
+      return;
+    }
 
     const start = lists[source.droppableId];
     const finish = lists[destination.droppableId];
@@ -65,27 +80,45 @@ function Board() {
     dispatch(dataActions.moveCardBetweenLists({ newStart, newFinish }));
   };
 
+  const innerList = useMemo(
+    () => <InnerList listIds={listIds} lists={lists} cards={cards} />, [listIds, lists, cards],
+  );
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className={classes.listContainer}>
-        {isAuthenticated && (
-          <>
-          {
-            listIds.map((listId) => {
-              const list = lists[listId];
-              const cardList = list.cardIds.map((cardId) => cards[cardId]);
-                return (
-                  <TrelloList key={listId} list={list} cards={cardList} />
-                );
-            })
-          }
-          <AddComponent isList />
-          </>
-        )} 
-      </div>
+      <Droppable droppableId="all-lists" direction="horizontal" type="list">
+        {(provided) => (
+          <div
+            className={classes.listContainer}
+            ref={provided.innerRef}
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...provided.droppableProps}
+          >
+            {isAuthenticated && (
+            <>
+              {innerList}
+              {provided.placeholder}
+              <AddComponent isList />
+            </>
+            )}
+          </div>
+        )}
+      </Droppable>
     </DragDropContext>
 
   );
 }
 
-export default Board;
+
+export function InnerList(props) {
+  const { listIds, lists, cards } = props;
+  return (
+    listIds.map((listId, index) => {
+      const list = lists[listId];
+      const cardList = list.cardIds.map((cardId) => cards[cardId]);
+      return (
+        <TrelloList key={listId} list={list} cards={cardList} index={index} />
+      );
+    })
+  );
+}
