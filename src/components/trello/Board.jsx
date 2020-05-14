@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
-import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import TrelloList from './TrelloList';
+import React, { useEffect, useMemo } from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
+import { useDispatch, useSelector } from 'react-redux';
+import '../../App.css';
 import * as dataActions from '../../redux/actions/dataActions';
 import AddComponent from './AddComponent';
-import '../../App.css';
+import TrelloList from './TrelloList';
 
 const useStyles = makeStyles({
   listContainer: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     fontSize: 14,
   },
 });
-function Board() {
+export default function Board() {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -65,27 +65,35 @@ function Board() {
     dispatch(dataActions.moveCardBetweenLists({ newStart, newFinish }));
   };
 
+  const innerList = useMemo(
+    () => <InnerList listIds={listIds} lists={lists} cards={cards} />, [listIds, lists, cards],
+  );
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={classes.listContainer}>
         {isAuthenticated && (
           <>
-          {
-            listIds.map((listId) => {
-              const list = lists[listId];
-              const cardList = list.cardIds.map((cardId) => cards[cardId]);
-                return (
-                  <TrelloList key={listId} list={list} cards={cardList} />
-                );
-            })
-          }
-          <AddComponent isList />
+            {innerList}
+            <AddComponent isList />
           </>
-        )} 
+        )}
       </div>
     </DragDropContext>
 
   );
 }
 
-export default Board;
+
+export function InnerList(props) {
+  const { listIds, lists, cards } = props;
+  return (
+    listIds.map((listId) => {
+      const list = lists[listId];
+      const cardList = list.cardIds.map((cardId) => cards[cardId]);
+      return (
+        <TrelloList key={listId} list={list} cards={cardList} />
+      );
+    })
+  );
+}
