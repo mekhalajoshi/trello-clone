@@ -12,7 +12,8 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     marginRight: 8,
-    overflow: 'scroll',
+    overflow: 'auto',
+    padding: 10,
   },
   title: {
     fontSize: 14,
@@ -43,7 +44,7 @@ export default function Board() {
       const payload = {
         listIds: newListIds,
       };
-      // dispatch(dataActions.moveList(payload));
+      dispatch(dataActions.moveList(payload));
       return;
     }
 
