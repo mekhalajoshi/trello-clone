@@ -41,11 +41,8 @@ function LogIn(props) {
     }
 
     // AWS Cognito integration here
-    console.log('AWS Cognito integration here');
-
     try {
       const user = await Auth.signIn(username, password);
-      console.log(user);
       dispatch(loginActions.setAuthStatus(true));
       dispatch(loginActions.setUser(user));
       props.history.push('/board');
@@ -53,6 +50,18 @@ function LogIn(props) {
       setErrors({ ...errors, cognito: !er.message ? { message: er } : er });
     }
   };
+
+  const handleGuestLogin = async () => {
+    try {
+      const user = await Auth.signIn('Guest', 'Canada2020!');
+      dispatch(loginActions.setAuthStatus(true));
+      dispatch(loginActions.setUser(user));
+      props.history.push('/board');
+    } catch (er) {
+      setErrors({ ...errors, cognito: !er.message ? { message: er } : er });
+    }
+  };
+
 
   const onInputChange = (event) => {
     switch (event.target.id) {
@@ -117,6 +126,8 @@ function LogIn(props) {
             </p>
           </div>
         </form>
+        <div>OR</div>
+        <div><button type="button" onClick={handleGuestLogin}> Continue as Guest</button></div>
       </div>
     </section>
   );

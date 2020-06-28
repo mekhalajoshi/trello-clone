@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
-import Board from './components/trello/Board';
+import Board from './components/trello/Board/Board';
 import Navbar from './components/Navbar';
 import Register from './components/auth/Register';
 import SignUpMessage from './components/auth/SignUpMessage';
@@ -15,12 +15,10 @@ import configureStore from './redux/store/configureStore';
 import LogIn from './components/auth/LogIn';
 import initialData from './initial_data';
 import Home from './components/Home';
-import ClickCounter from './components/ClickCounter';
 
 const store = configureStore(initialData);
 const App = () => (
   <div>
-    <ClickCounter />
     <ReduxProvider store={store}>
       <Router basename={process.env.PUBLIC_URL}>
         <div>
