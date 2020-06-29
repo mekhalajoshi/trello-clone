@@ -8,6 +8,7 @@ h1 {
   font-size: 2em !important;
 }
 
+
 .product-title {
   font-weight: bold;
   font-size: 1.2em;
@@ -17,6 +18,7 @@ h1 {
   font-size: .8em;
   margin: 1em 0;
 }
+
 
 .product-edit-icon {
   opacity: .7;
@@ -29,9 +31,18 @@ h1 {
   opacity: 1;
 }
 
-.navbar, .navbar-end, .navbar-menu, .navbar-start {
+
+/* .navbar, .navbar-end, .navbar-menu, .navbar-start {
   align-items: stretch !important;
   display: flex !important;
+} */
+
+.navbar {
+  background-color: #00000045 !important;
+  color: white !important;
+  max-height: 40px !important;
+  padding: 4px !important;
+  overflow: hidden !important;
 }
 
 .navbar-menu {
@@ -44,11 +55,18 @@ h1 {
 .navbar-item {
   display: flex !important;
   align-items: center;
+  color:white !important;
 }
 
 .navbar-end {
   justify-content: flex-end !important;
   margin-left: auto !important;
+}
+
+.nav_button {
+	padding: 10px !important;
+  background: #00000045 !important;
+  margin-right: 10px !important;
 }
 
 .features {
@@ -68,7 +86,11 @@ body {
 .buttons {
   margin-left: 1em;
 }
-
+.app_container{
+  background-image: url("./images/background.jpg");
+  height: 100vh;
+ 
+}
 .board_container{
   background-image: url("./images/background.jpg");
   background-size: cover;

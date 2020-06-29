@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     marginBottom: 10,
   },
   title: {
+    fontFamily: 'Segoe UI',
     fontSize: 14,
     wordWrap: 'word-break',
   },

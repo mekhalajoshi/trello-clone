@@ -39,11 +39,11 @@ function Navbar() {
 
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">
-            <Link to="/" className="navbar-item">
+            <Link to="/" className="navbar-item button is-info nav_button">
               Home
             </Link>
             {isAuthenticated && (
-              <Link to="/board" className="navbar-item">
+              <Link to="/board" className="navbar-item button is-info nav_button">
                 Board
               </Link>
             )}
@@ -61,10 +61,10 @@ function Navbar() {
               <div className="buttons">
                 {!isAuthenticated && (
                   <div>
-                    <Link to="/register" className="button is-info">
+                    <Link to="/register" className="button is-info nav_button">
                       <strong>Register</strong>
                     </Link>
-                    <Link to="/login" className="button is-light">
+                    <Link to="/login" className="button is-info nav_button">
                       Log in
                     </Link>
                   </div>

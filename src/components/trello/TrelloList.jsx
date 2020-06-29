@@ -21,6 +21,9 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 14,
+    fontWeight: 600,
+    padding: '5px 5px',
+
   },
 });
 
@@ -38,7 +41,7 @@ function TrelloList(props) {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          {list.listName}
+          <div className={classes.title}>{list.listName}</div>
           <Droppable droppableId={list.listId} type="card">
             {(provided) => (
               <div

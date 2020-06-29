@@ -18,7 +18,7 @@ import Home from './components/Home';
 
 const store = configureStore(initialData);
 const App = () => (
-  <div>
+  <div className="app_container">
     <ReduxProvider store={store}>
       <Router basename={process.env.PUBLIC_URL}>
         <div>
