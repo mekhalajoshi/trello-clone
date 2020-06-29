@@ -9,7 +9,6 @@ const BoardContent = (props) => {
   const {
     onDragEnd, isAuthenticated, listIds, lists, cards,
   } = props;
-
   const classes = useStyles();
 
   const innerList = useMemo(
@@ -40,13 +39,9 @@ const BoardContent = (props) => {
   );
 };
 
-BoardContent.defaultProps = {
-  isAuthenticated: false,
-};
-
 BoardContent.propTypes = {
   onDragEnd: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+  isAuthenticated: PropTypes.bool.isRequired,
   listIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   lists: PropTypes.objectOf(PropTypes.any).isRequired,
   cards: PropTypes.objectOf(PropTypes.any).isRequired,

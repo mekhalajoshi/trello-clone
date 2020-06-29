@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+// import '../../../App.css';
 import * as dataActions from '../../../redux/actions/dataActions';
 import BoardContent from './BoardContent';
 
-
-const GuestBoard = (props) => {
+export default function Board() {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(dataActions.getUserData());
+  }, []);
 
+  const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
   const data = useSelector((state) => state.data);
-  const {
-    listIds, lists, cards,
-  } = data;
-  const { isAuthenticated } = props;
+  const { listIds, lists, cards } = data;
 
   const onDragEnd = (result) => {
     const {
@@ -65,25 +65,12 @@ const GuestBoard = (props) => {
 
 
   return (
-    <div>
-      {isAuthenticated
-        && (
-        <BoardContent
-          onDragEnd={onDragEnd}
-          isAuthenticated={isAuthenticated}
-          listIds={listIds}
-          lists={lists}
-          cards={cards}
-        />
-        )}
-
-    </div>
+    <BoardContent
+      onDragEnd={onDragEnd}
+      isAuthenticated={isAuthenticated}
+      listIds={listIds}
+      lists={lists}
+      cards={cards}
+    />
   );
-};
-
-GuestBoard.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-
-};
-
-export default GuestBoard;
+}
