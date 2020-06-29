@@ -13,9 +13,17 @@ import ForgotPassword from './components/auth/ForgotPassword';
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification';
 import configureStore from './redux/store/configureStore';
 import LogIn from './components/auth/LogIn';
-import initialData from './initial_data';
 import Home from './components/Home';
 
+const initialData = {
+  courses: [],
+  login: {},
+  data: {
+    cards: {},
+    listIds: [],
+    lists: {},
+  },
+};
 const store = configureStore(initialData);
 const App = () => (
   <div className="app_container">

@@ -1,5 +1,14 @@
 import * as types from '../actions/actionTypes';
-import initialData from '../../initial_data';
+
+const initialData = {
+  courses: [],
+  login: {},
+  data: {
+    cards: {},
+    listIds: [],
+    lists: {},
+  },
+};
 
 const dataReducer = (state = initialData, action) => {
   switch (action.type) {
