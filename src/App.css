@@ -30,10 +30,10 @@ h1 {
 }
 
 
-/* .navbar, .navbar-end, .navbar-menu, .navbar-start {
+.navbar, .navbar-end, .navbar-menu, .navbar-start {
   align-items: stretch !important;
   display: flex !important;
-} */
+}
 
 .navbar {
   background-color: #00000045 !important;
@@ -151,4 +151,15 @@ body {
 .add_button:hover{
   background-color: rgba(9,30,66,.08) !important;
     color: #172b4d !important;
+}
+@media screen and (max-width:1023px){
+  .navbar-menu {
+    background-color: #00000000 !important;
+    color: white !important;
+    max-height: 40px !important;
+    padding: 4px !important;
+    overflow: hidden !important;
+  }
+  
+
 }
