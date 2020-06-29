@@ -62,7 +62,6 @@ function LogIn(props) {
     }
   };
 
-
   const onInputChange = (event) => {
     switch (event.target.id) {
       case 'username':

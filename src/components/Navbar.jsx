@@ -28,7 +28,6 @@ function Navbar() {
   };
 
   return (
-
     <div>
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
