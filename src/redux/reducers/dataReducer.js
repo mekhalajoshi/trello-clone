@@ -53,6 +53,28 @@ const dataReducer = (state = initialData, action) => {
         ...state,
         listIds: action.payload.listIds,
       };
+    case types.MOVE_LIST_GUEST:
+      return {
+        ...state,
+        listIds: action.payload.listIds,
+      };
+    case types.MOVE_CARD_BETWEEN_LISTS_GUEST:
+      return {
+        ...state,
+        lists: {
+          ...state.lists,
+          [action.payload.newStart.listId]: action.payload.newStart,
+          [action.payload.newFinish.listId]: action.payload.newFinish,
+        },
+      };
+    case types.MOVE_CARD_WITHIN_LIST_GUEST:
+      return {
+        ...state,
+        lists: {
+          ...state.lists,
+          [action.newList.listId]: action.newList,
+        },
+      };
     default:
       return state;
   }
