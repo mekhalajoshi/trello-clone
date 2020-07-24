@@ -126,7 +126,7 @@ function LogIn(props) {
           </div>
         </form>
         <div>OR</div>
-        <div><button type="button" onClick={handleGuestLogin}> Continue as Guest</button></div>
+        <div><button type="button" className="button is-success" onClick={handleGuestLogin}> Continue as Guest</button></div>
       </div>
     </section>
   );

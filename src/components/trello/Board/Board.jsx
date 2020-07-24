@@ -13,7 +13,7 @@ export default function Board() {
       {isAuthenticated && (
         user.username === 'guest'
           ? <GuestBoard isAuthenticated={isAuthenticated} />
-          : <UserBoard />
+          : <UserBoard isAuthenticated={isAuthenticated} />
       )}
     </div>
   );
